@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Текущее время</title>
+    <style>
+        body {
+            background: url('/bg.jpg') no-repeat center center fixed;
+            text-align: center;
+        }
+        nav {
+            background: #32af2a;
+            padding: 10px;
+        }
+        nav a {
+            color: white;
+            margin: 0 15px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        h2 {
+            color: white;
+        }
+        div {
+            background: rgba(32, 31, 31, 0.36);
+            height: 75px;
+            text-align: center;
+            margin-top: 100px;
+            padding-top: 20px;
+        }
+    </style>
+    <script>
+        function updateTime() {
+            // Получаем элемент с временем
+            const timeElement = document.getElementById("time");
+
+            // Получаем текущее время
+            const now = new Date();
+            const year = now.getFullYear();
+            const month = String(now.getMonth() + 1).padStart(2, '0');
+            const day = String(now.getDate()).padStart(2, '0');
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+
+            // Форматируем время
+            const formattedTime = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+
+            // Обновляем текст в элементе
+            timeElement.textContent = formattedTime;
+        }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            // Устанавливаем начальное значение времени из модели
+            const initialTime = /*[[${time}]]*/'2024-01-01 12:00:00';
+            document.getElementById("time").textContent = initialTime;
+
+            // Запускаем обновление времени каждую секунду
+            setInterval(updateTime, 1000);
+        });
+    </script>
+</head>
+<body>
+<nav>
+    <a href="/spisok">Список юзеров</a>
+    <a href="/search">Поиск юзеров</a>
+    <a href="/add_user">Добавить юзера</a>
+    <a href="/info">Главная страница</a>
+    <a href="/time">Текущее время</a>
+</nav>
+<div>
+    <h2 id="time" th:text="${time}"></h2>
+</div>
+</body>
+</html>

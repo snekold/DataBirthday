@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Дни рождения пользователей</title>
+    <style>
+        table {
+            margin: 3px auto;
+            border-collapse: collapse;
+            width: 50%; /* Ширина таблицы */
+            table-layout: auto;
+        }
+
+        nav{
+            background: #32af2a;
+            padding: 10px;
+        }
+
+        nav a{
+            color: white;
+            margin: 0 15px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        body{
+            background:url('/bg.jpg') no-repeat center center fixed;
+            text-align: center;
+        }
+        tbody{
+            background: rgba(25, 24, 22, 0.58);
+
+        }
+        thead{
+            background: rgba(25, 24, 22, 0.76);
+        }
+
+
+        th,td{
+            border: 1px solid black;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <a href="/spisok">Список юзеров</a>
+    <a href="/search">Поиск юзеров</a>
+    <a href="/add_user">Добавить юзера</a>
+    <a href="/info">Главная страница</a>
+    <a href="/time">Текущее время</a>
+</nav>
+
+<table>
+    <thead>
+    <tr>
+        <th>Имя</th>
+        <th>Дата рождения</th>
+        <th>Функционал</th>
+        <th>Изменить</th>
+    </tr>
+    </thead>
+
+
+    <tbody>
+
+    <tr th:each="user : ${users}" >
+        <td th:text="${user.name}"></td>
+        <td th:text="${user.birthday}"></td>
+
+        <td>
+        <form action="/delete_user" method="post">
+            <input type="hidden" name="id_user" th:value="${user.id}" />
+            <button type="submit">Удалить</button>
+        </form>
+        </td>
+
+        <td>
+            <form action="/edit_user" method="post">
+                <input type="hidden" name="id_user" th:value="${user.id}" />
+                <button type="submit">Изменить</button>
+            </form>
+        </td>
+
+    </tr>
+
+    </tbody>
+
+</table>
+
+
+</body>
+</html>
